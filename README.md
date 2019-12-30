@@ -21,23 +21,24 @@ More details please refer to my blog (updating).
 >Note: since each user and each item would have multiple reviews, we categorize the existing methods into two kinds:
 - document-level methods: concatenate all the reviews into a long document, and then learn representations from the doc, we denote as **Doc** feature.
 - review-level methods: model each review seperately and then aggregate all reviews together as the user item latent feature.
+
 Besides, the rating feature of users and items (i.e., ID embedding) is usefule when there are few reviews.
 
 We plan to follow the start-of-art review-based recommendation methods and involve them into this repo, the baseline methods are listed here:
 
-| Method | Feature | Prediction | Status|
-| ---- | ---- | ---- | ---- |
-| DeepCoNN | Doc| FM | &check; |
-| DAML | Doc, ID |  | &check; |
-|NARRE | Review, ID | LFM | &check; |
-| D-Atten | Doc | MLP | &#9746;|
-| ANR | Doc, ID |  | &#9746;|
-| CARL | Doc, ID |  | &#9746;|
-| CARP | Doc, ID | | &#9746;|
-|MPCN | Review, ID | FM |&#9746; |
-|TARMF | Review, ID | FM | &#9746;|
+| Method | Feature |  Status|
+| ---- | ---- |  ---- |
+| DeepCoNN(WSDM'17) | Doc &check; |
+| D-Attn(RecSys'17) | Doc | &#9746;|
+| ANR(CIKM'18) | Doc, ID  | &#9746;|
+|NARRE(WWW'18) | Review, ID  | &check; |
+|MPCN(KDD'18) | Review, ID |&#9746; |
+|TARMF(WWW'18) | Review, ID | &#9746;|
+| CARL(TOIS'19) | Doc, ID |  &#9746;|
+| CARP(SIGIR'19) | Doc, ID | &#9746;|
+| DAML(KDD'19) | Doc, ID | &check; |
 
-We will release the rest baseline methods later.
+We will release the rest unfinished baseline methods later.
 
 ## Usage
 
