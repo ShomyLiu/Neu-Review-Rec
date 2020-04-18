@@ -14,7 +14,7 @@ Traditional methods always use topic modelling technology to capture  the semant
 Recently, many deep learning based methods are proposed, such as DeepCoNN, D-Attn etc, which use the neural networks, attention mechanism to learn representations of users and items more comprehensively.
 
 
-More details please refer to my blog (updating).
+More details please refer to [my blog](http://shomy.top/2019/12/31/neu-review-rec/).
 
 ## Methods
 
