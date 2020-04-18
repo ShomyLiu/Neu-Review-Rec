@@ -241,27 +241,34 @@ if __name__ == '__main__':
     print("itemNum: {}".format(itemNum))
     print("===============End-no-process: trainData size========================")
 
-    uidMiss = []
     iidMiss = []
-    if userNum != userNum_raw or itemNum != itemNum_raw:
-        for uid in range(userNum_raw):
-            if uid not in uidList_train:
-                uidMiss.append(uid)
+    if itemNum != itemNum_raw:
         for iid in range(itemNum_raw):
             if iid not in iidList_train:
                 iidMiss.append(iid)
 
-    if len(uidMiss):
-        for uid in uidMiss:
-            df_temp = data_test[data_test['user_id'] == uid]
-            data_test = data_test[data_test['user_id'] != uid]
-            data_train = pd.concat([data_train, df_temp])
+    iid_concat_index = []
+    for iid in iidMiss:
+        index = data_test.index[data_test['item_id'] == iid].tolist()[0]
+        iid_concat_index.append(index)
+        
+    data_train = pd.concat([data_train, data_test.iloc[iid_concat_index]])
 
-    if len(iidMiss):
-        for iid in iidMiss:
-            df_temp = data_test[data_test['item_id'] == iid]
-            data_test = data_test[data_test['item_id'] != iid]
-            data_train = pd.concat([data_train, df_temp])
+    uidMiss = []
+    if userNum != userNum_raw or itemNum != itemNum_raw:
+        for uid in range(userNum_raw):
+            if uid not in uidList_train:
+                uidMiss.append(uid)
+
+    uid_concat_index = []
+    for i in range(len(uidMiss)):
+        index = data_test.index[data_test['user_id'] == uidMiss[i]].tolist()[0]
+        uid_concat_index.append(index)
+
+    data_train = pd.concat([data_train, data_test.iloc[uid_concat_index]])
+
+    concat_index = list(set().union(uid_concat_index,iid_concat_index))
+    data_test = data_test.drop(data_test.index[concat_index])
 
     data_test, data_val = train_test_split(data_test, test_size=0.5, random_state=1234)
     # 重新统计训练集中的用户数，商品数，查看是否有丢失的数据
