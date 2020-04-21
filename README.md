@@ -28,7 +28,7 @@ We plan to follow the start-of-art review-based recommendation methods and invol
 
 | Method | Feature |  Status|
 | ---- | ---- |  ---- |
-| DeepCoNN(WSDM'17) | Doc &check; |
+| DeepCoNN(WSDM'17) | Doc | &check; |
 | D-Attn(RecSys'17) | Doc | &#9746;|
 | ANR(CIKM'18) | Doc, ID  | &#9746;|
 |NARRE(WWW'18) | Review, ID  | &check; |
