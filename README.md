@@ -107,3 +107,14 @@ In order to make our framework more extensible, we define three modules in our f
 
 Hence, researchers could build their models in user/item representation learning layer.
 
+## Citation
+If the code is useful for you, please cite:
+```
+@inproceedings{liu2019nrpa,
+  title={NRPA: Neural Recommendation with Personalized Attention},
+  author={Liu, Hongtao and Wu, Fangzhao and Wang, Wenjun and Wang, Xianchen and Jiao, Pengfei and Wu, Chuhan and Xie, Xing},
+  booktitle={Proceedings of the 42nd International ACM SIGIR Conference on Research and Development in Information Retrieval},
+  pages={1233--1236},
+  year={2019}
+}
+```
