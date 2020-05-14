@@ -23,8 +23,9 @@ More details please refer to [my blog](http://shomy.top/2019/12/31/neu-review-re
 - review-level methods: model each review seperately and then aggregate all reviews together as the user item latent feature.
 
 Besides, the rating feature of users and items (i.e., ID embedding) is usefule when there are few reviews.
+So there would be three features in all (i.e., document-level, review-level, ID).
 
-We plan to follow the start-of-art review-based recommendation methods and involve them into this repo, the baseline methods are listed here:
+We plan to follow the state-of-art review-based recommendation methods and involve them into this repo, the baseline methods are listed here:
 
 | Method | Feature |  Status|
 | ---- | ---- |  ---- |
@@ -63,7 +64,7 @@ We will release the rest unfinished baseline methods later.
     python3 main.py train --model=DeepCoNN --num_fea=1 --output=fm
     python3 main.py train --model=NARRE --num_fea=2 --output=lfm
     ```
-    Note that the `num_fea (1,2,3)` corresponds how many features used in the methods, (ID feature, Review and Doc)
+    Note that the `num_fea (1,2,3)` corresponds how many features used in the methods, (ID feature, Review-level and Doc-level denoted above).
 
 ## Framework Design
 
@@ -90,6 +91,12 @@ uids, iids, user_reviews, item_reviews, user_item2id, item_user2id, user_doc, it
 ```
 This is all the information involved in review-based recommendation, researchers can utilize this data format to build own models.
 Note that the review in validation/test dataset is excluded.
+
+```
+Note that  the review processing methods are usually different among these papers (e.g., the vocab, padding), which would influence their performance.
+In this repo, to be fair, we adopt the same pre-poressing approach for all the methods. 
+Hence the performance may be not consistent with the origin papers.
+```
 
 ### Model Details
 In order to make our framework more extensible, we define three modules in our framework:
