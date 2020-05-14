@@ -92,11 +92,10 @@ uids, iids, user_reviews, item_reviews, user_item2id, item_user2id, user_doc, it
 This is all the information involved in review-based recommendation, researchers can utilize this data format to build own models.
 Note that the review in validation/test dataset is excluded.
 
-```
-Note that  the review processing methods are usually different among these papers (e.g., the vocab, padding), which would influence their performance.
+>Note that  the review processing methods are usually different among these papers (e.g., the vocab, padding), which would influence their performance.
 In this repo, to be fair, we adopt the same pre-poressing approach for all the methods. 
 Hence the performance may be not consistent with the origin papers.
-```
+
 
 ### Model Details
 In order to make our framework more extensible, we define three modules in our framework:
