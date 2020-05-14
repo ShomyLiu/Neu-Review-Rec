@@ -1,7 +1,7 @@
 A Toolkit for Neural Review-based Recommendation models with Pytorch.
 基于评论文本的深度推荐系统模型库 (Pytorch)
 
-# Neural Review-based Rec
+# Neural Review-based Recommendaton
 In this repository, we reimplement some important review-based recommendation models, and provide an extensible framework **NRRec**  with Pytorch.
 Researchers can implement their own methodss easily in our framework (just in *models* folder).
 
