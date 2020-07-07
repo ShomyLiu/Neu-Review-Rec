@@ -15,13 +15,12 @@ class DefaultConfig:
     gpu_ids = []
 
     seed = 2019
-    num_epochs = 30
+    num_epochs = 20
     num_workers = 0
 
     optimizer = 'Adam'
     weight_decay = 1e-3  # optimizer rameteri
     lr = 2e-3
-    eps = 1e-8
     loss_method = 'mse'
     drop_out = 0.5
 
@@ -31,11 +30,11 @@ class DefaultConfig:
     query_mlp_size = 128
     fc_dim = 32
 
-    doc_len = 400
+    doc_len = 500
     filters_num = 100
     kernel_size = 3
 
-    num_fea = 2  # id feature, review feature, doc feature
+    num_fea = 1  # id feature, review feature, doc feature
     use_review = True
     use_doc = True
     self_att = False
@@ -45,6 +44,7 @@ class DefaultConfig:
     output = 'lfm'  # 'fm', 'lfm', 'other: sum the ui_feature'
 
     fine_step = False
+    pth_path = ""  # the saved pth path for test
     print_opt = 'default'
 
     def set_path(self, name):
@@ -96,16 +96,17 @@ class Digital_Music_data_Config(DefaultConfig):
     def __init__(self):
         self.set_path('Digital_Music_data')
 
-    vocab_size = 40001
+    vocab_size = 50001
     word_dim = 300
 
-    r_max_len = 155
+    r_max_len = 202
 
     u_max_r = 13
     i_max_r = 24
 
     train_data_size = 51764
     test_data_size = 6471
+    val_data_size = 6471
 
     user_num = 5541 + 2
     item_num = 3568 + 2
