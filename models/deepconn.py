@@ -13,6 +13,7 @@ class DeepCoNN(nn.Module):
     def __init__(self, opt, uori='user'):
         super(DeepCoNN, self).__init__()
         self.opt = opt
+        self.num_fea = 1 # DOC
 
         self.user_word_embs = nn.Embedding(opt.vocab_size, opt.word_dim)  # vocab_size * 300
         self.item_word_embs = nn.Embedding(opt.vocab_size, opt.word_dim)  # vocab_size * 300

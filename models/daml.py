@@ -14,6 +14,7 @@ class DAML(nn.Module):
         super(DAML, self).__init__()
 
         self.opt = opt
+        self.num_fea = 2  # ID + DOC
         self.user_word_embs = nn.Embedding(opt.vocab_size, opt.word_dim)  # vocab_size * 300
         self.item_word_embs = nn.Embedding(opt.vocab_size, opt.word_dim)  # vocab_size * 300
 

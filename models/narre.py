@@ -13,6 +13,7 @@ class NARRE(nn.Module):
     def __init__(self, opt):
         super(NARRE, self).__init__()
         self.opt = opt
+        self.num_fea = 2  # ID + Review
 
         self.user_net = Net(opt, 'user')
         self.item_net = Net(opt, 'item')
