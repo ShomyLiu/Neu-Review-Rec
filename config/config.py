@@ -43,7 +43,7 @@ class DefaultConfig:
     ui_merge = 'cat'  # cat/add/dot
     output = 'lfm'  # 'fm', 'lfm', 'other: sum the ui_feature'
 
-    fine_step = False
+    fine_step = False  # save mode in step level, defualt in epoch
     pth_path = ""  # the saved pth path for test
     print_opt = 'default'
 
