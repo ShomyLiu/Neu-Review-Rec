@@ -53,18 +53,23 @@ We will release the rest unfinished baseline methods later.
 
 **Use the code**
 
-- Preprocessing the origin Amazon or Yelp dataset via `pro_data/data_pro.py`, then some `npy` files will be generated in `dataset/`
+- Preprocessing the origin Amazon or Yelp dataset via `pro_data/data_pro.py`, then some `npy` files will be generated in `dataset/`, including train, val, and test datset.
     ```
     cd pro_data
     python3 data_pro.py Digital_Music_5.json
     # details in data_pro.py (e.g., the pretrained word2vec.bin path)
     ```
-- Run the model. Take DeepCoNN and NARRE as examples, the command lines can be customized:
+- Train the model. Take DeepCoNN and NARRE as examples, the command lines can be customized:
     ```
     python3 main.py train --model=DeepCoNN --num_fea=1 --output=fm
     python3 main.py train --model=NARRE --num_fea=2 --output=lfm
     ```
     Note that the `num_fea (1,2,3)` corresponds how many features used in the methods, (ID feature, Review-level and Doc-level denoted above).
+- Test the model using the saved pth file in `checkpoints` in the test datase: for example:
+    ```
+    python3 main.py test --pth_path="./checkpoints/THE_PTH_PATH" --model=DeepCoNN
+
+    ```
 
 ## Framework Design
 
