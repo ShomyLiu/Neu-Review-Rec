@@ -14,7 +14,7 @@ class Model(nn.Module):
         super(Model, self).__init__()
         self.opt = opt
         self.model_name = self.opt.model
-        self.model = Net(opt)
+        self.net = Net(opt)
 
         if self.opt.ui_merge == 'cat':
             if self.opt.r_id_merge == 'cat':
@@ -35,7 +35,7 @@ class Model(nn.Module):
     def forward(self, datas):
 
         user_reviews, item_reviews, uids, iids, user_item2id, item_user2id, user_doc, item_doc = datas
-        user_feature, item_feature = self.model(datas)
+        user_feature, item_feature = self.net(datas)
 
         ui_feature = self.fusion_net(user_feature, item_feature)
         ui_feature = self.dropout(ui_feature)
