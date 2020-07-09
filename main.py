@@ -73,6 +73,7 @@ def train(**kwargs):
         total_loss = 0.0
         total_maeloss = 0.0
         model.train()
+        print(f"{now()}  Epoch {epoch}...")
         for idx, (train_datas, scores) in enumerate(train_data_loader):
             if opt.use_gpu:
                 scores = torch.FloatTensor(scores).cuda()
@@ -111,7 +112,7 @@ def train(**kwargs):
 
         scheduler.step()
         mse = total_loss * 1.0 / len(train_data)
-        print(f"{now()}; epoch:{epoch}...\n\ttrain data: loss:{total_loss:.4f}, mse: {mse:.4f};")
+        print(f"\ttrain data: loss:{total_loss:.4f}, mse: {mse:.4f};")
 
         val_loss, val_mse, val_mae = predict(model, val_data_loader, opt)
         if val_loss < min_loss:
