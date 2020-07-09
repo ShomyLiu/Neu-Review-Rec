@@ -33,7 +33,7 @@ We plan to follow the state-of-art review-based recommendation methods and invol
 | D-Attn(RecSys'17) | Doc | &check;|
 | ANR(CIKM'18) | Doc, ID  | &#9746;|
 |NARRE(WWW'18) | Review, ID  | &check; |
-|MPCN(KDD'18) | Review, ID |&#9746; |
+|MPCN(KDD'18) | Review |&#9746; |
 |TARMF(WWW'18) | Review, ID | &#9746;|
 | CARL(TOIS'19) | Doc, ID |  &#9746;|
 | CARP(SIGIR'19) | Doc, ID | &#9746;|
