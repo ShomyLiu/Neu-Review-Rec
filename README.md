@@ -30,7 +30,7 @@ We plan to follow the state-of-art review-based recommendation methods and invol
 | Method | Feature |  Status|
 | ---- | ---- |  ---- |
 | DeepCoNN(WSDM'17) | Doc | &check; |
-| D-Attn(RecSys'17) | Doc | &#9746;|
+| D-Attn(RecSys'17) | Doc | &check;|
 | ANR(CIKM'18) | Doc, ID  | &#9746;|
 |NARRE(WWW'18) | Review, ID  | &check; |
 |MPCN(KDD'18) | Review, ID |&#9746; |
