@@ -212,7 +212,7 @@ if __name__ == '__main__':
     print(f"dataNum: {data.shape[0]}")
     print(f"userNum: {userNum_all}")
     print(f"itemNum: {itemNum_all}")
-    print(f"data densiy: {data.shape[0]/float(userNum_all * itemNum_all)}")
+    print(f"data densiy: {data.shape[0]/float(userNum_all * itemNum_all):.4f}")
     print("===============End: rawData size========================")
 
     uidList = userCount.index  # userID list
@@ -221,7 +221,7 @@ if __name__ == '__main__':
     item2id = dict((iid, i) for(i, iid) in enumerate(iidList))
     data = numerize(data)
 
-    print(f"-"*30)
+    print(f"-"*60)
     print(f"{now()} Step2: split datsets into train/val/test, save into npy data")
     data_train, data_test = train_test_split(data, test_size=0.2, random_state=1234)
     userCount, itemCount = get_count(data_train, 'user_id'), get_count(data_train, 'item_id')
@@ -247,17 +247,17 @@ if __name__ == '__main__':
     uid_index = []
     for uid in uidMiss:
         index = data_test.index[data_test['user_id'] == uid].tolist()
-        uid_index.append(index)
+        uid_index.extend(index)
     data_train = pd.concat([data_train, data_test.loc[uid_index]])
 
     iid_index = []
     for iid in iidMiss:
         index = data_test.index[data_test['item_id'] == iid].tolist()
-        iid_index.append(index)
+        iid_index.extend(index)
     data_train = pd.concat([data_train, data_test.loc[iid_index]])
 
     all_index = list(set().union(uid_index, iid_index))
-    data_test = data_test.drop(data_test.index[all_index])
+    data_test = data_test.drop(all_index)
 
     # split validate set aand test set
     data_test, data_val = train_test_split(data_test, test_size=0.5, random_state=1234)
@@ -298,7 +298,7 @@ if __name__ == '__main__':
     print(f"Val data size: {len(x_val)}")
     print(f"Test data size: {len(x_test)}")
 
-    print(f"-"*30)
+    print(f"-"*60)
     print(f"{now()} Step3: Construct the vocab and user/item reviews from training set.")
     # 2: build vocabulary only with train dataset
     user_reviews_dict = {}
@@ -355,7 +355,7 @@ if __name__ == '__main__':
     userDoc2Index = []
     user_iid_list = []
 
-    print(f"-"*30)
+    print(f"-"*60)
     print(f"{now()} Step4: padding all the text and id lists and save into npy.")
 
     def padding_text(textList, num):
@@ -449,7 +449,7 @@ if __name__ == '__main__':
     itemDoc2Index, itemDocLen = padding_doc(itemDoc2Index)
     print(f"item document length: {itemDocLen}")
 
-    print("-"*30)
+    print("-"*60)
     print(f"{now()} start writing npy...")
     np.save(f"{save_folder}/train/userReview2Index.npy", userReview2Index)
     np.save(f"{save_folder}/train/user_item2id.npy", user_iid_list)
@@ -462,7 +462,7 @@ if __name__ == '__main__':
     print(f"{now()} write finised")
 
     # #####################################################3,产生w2v############################################
-    print("-"*30)
+    print("-"*60)
     print(f"{now()} Step5: start word embedding mapping...")
     vocab_item = sorted(word_index.items(), key=itemgetter(1))
     w2v = []
@@ -487,4 +487,4 @@ if __name__ == '__main__':
     print(w2vArray.shape)
     np.save(f"{save_folder}/train/w2v.npy", w2v)
     end_time = time.time()
-    print(f"{now()} all steps finised, cost time: {end_time-start_time}")
+    print(f"{now()} all steps finised, cost time: {end_time-start_time:.4f}s")
