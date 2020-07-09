@@ -96,7 +96,7 @@ class Digital_Music_data_Config(DefaultConfig):
     def __init__(self):
         self.set_path('Digital_Music_data')
 
-    vocab_size = 50001
+    vocab_size = 50002
     word_dim = 300
 
     r_max_len = 202
