@@ -70,15 +70,16 @@ def build_doc(u_reviews_dict, i_reviews_dict):
     '''
     u_reviews = []
     for ind in range(len(u_reviews_dict)):
-        u_reviews.append(' '.join(u_reviews_dict[ind]))
+        u_reviews.append(' <SEP> '.join(u_reviews_dict[ind]))
 
     i_reviews = []
     for ind in range(len(i_reviews_dict)):
-        i_reviews.append(' '.join(i_reviews_dict[ind]))
+        i_reviews.append('<SEP>'.join(i_reviews_dict[ind]))
 
     vectorizer = TfidfVectorizer(max_df=MAX_DF, max_features=MAX_VOCAB)
     vectorizer.fit(u_reviews)
     vocab = vectorizer.vocabulary_
+    vocab[MAX_VOCAB] = '<SEP>'
 
     def clean_review(rDict):
         new_dict = {}
@@ -99,8 +100,8 @@ def build_doc(u_reviews_dict, i_reviews_dict):
             new_raw.append(review)
         return new_raw
 
-    u_reviews_dict = clean_review(user_reviews_dict)
-    i_reviews_dict = clean_review(item_reviews_dict)
+    u_reviews_dict = clean_review(u_reviews_dict)
+    i_reviews_dict = clean_review(i_reviews_dict)
 
     u_doc = clean_doc(u_reviews)
     i_doc = clean_doc(i_reviews)
