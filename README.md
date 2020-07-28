@@ -71,6 +71,29 @@ We will release the rest unfinished baseline methods later.
 
     ```
 
+An output sample:
+```
+loading train data
+loading val data
+train data: 51764; test data: 6471
+start training....
+2020-07-28 12:27:58  Epoch 0...
+        train data: loss:107503.6215, mse: 2.0768;
+        evaluation reslut: mse: 1.2466; rmse: 1.1165; mae: 0.9691;
+model save
+******************************
+2020-07-28 12:28:13  Epoch 1...
+        train data: loss:80552.2573, mse: 1.5561;
+        evaluation reslut: mse: 1.0296; rmse: 1.0147; mae: 0.8384;
+model save
+******************************
+2020-07-28 12:28:29  Epoch 2...
+        train data: loss:70202.6199, mse: 1.3562;
+        evaluation reslut: mse: 0.9926; rmse: 0.9963; mae: 0.8146;
+model save
+******************************
+```
+
 ## Framework Design
 
 An overview of the package dir:
