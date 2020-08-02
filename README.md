@@ -41,6 +41,18 @@ We plan to follow the state-of-art review-based recommendation methods and invol
 
 We will release the rest unfinished baseline methods later.
 
+### References
+> 
+- Zheng L, Noroozi V, Yu P S. Joint deep modeling of users and items using reviews for recommendation[C]//Proceedings of the Tenth ACM International Conference on Web Search and Data Mining. ACM, 2017: 425-434.
+- Sungyong Seo, Jing Huang, Hao Yang, and Yan Liu. 2017. Interpretable Convolutional Neural Networks with Dual Local and Global Attention for Review Rating Prediction. In Proceedings ofthe Eleventh ACMConference on Recommender Systems.
+- Chin J Y, Zhao K, Joty S, et al. ANR: Aspect-based neural recommender[C]//Proceedings of the 27th ACM International Conference on Information and Knowledge Management. 2018: 147-156.
+- Chen C, Zhang M, Liu Y, et al. Neural attentional rating regression with review-level explanations[C]//Proceedings of the 2018 World Wide Web Conference. 2018: 1583-1592.
+- Tay Y, Luu A T, Hui S C. Multi-pointer co-attention networks for recommendation[C]//Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining. 2018: 2309-2318.
+- Lu Y, Dong R, Smyth B. Coevolutionary recommendation model: Mutual learning between ratings and reviews[C]//Proceedings of the 2018 World Wide Web Conference. 2018: 773-782.
+- Wu L, Quan C, Li C, et al. A context-aware user-item representation learning for item recommendation[J]. ACM Transactions on Information Systems (TOIS), 2019, 37(2): 1-29.
+- Li C, Quan C, Peng L, et al. A capsule network for recommendation and explaining what you like and dislike[C]//Proceedings of the 42nd International ACM SIGIR Conference on Research and Development in Information Retrieval. 2019: 275-284.
+- Liu D, Li J, Du B, et al. Daml: Dual attention mutual learning between ratings and reviews for item recommendation[C]//Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining. 2019: 344-352.
+
 ## Usage
 
 **Requirements**
@@ -140,6 +152,8 @@ In order to make our framework more extensible, we define three modules in our f
     - MLP
 
 Hence, researchers could build their models in user/item representation learning layer.
+
+>Note that if you would like to add new method or datset, please remember to declare in the `__init__.py`
 
 ## Citation
 If you use the code, please cite:
