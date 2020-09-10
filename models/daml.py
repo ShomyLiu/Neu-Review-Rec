@@ -27,6 +27,8 @@ class DAML(nn.Module):
         self.user_abs_cnn = nn.Conv2d(1, opt.filters_num, (opt.kernel_size, opt.filters_num))
         self.item_abs_cnn = nn.Conv2d(1, opt.filters_num, (opt.kernel_size, opt.filters_num))
 
+        self.unfold = nn.Unfold((3, opt.filters_num), padding=(1, 0))
+
         # fc layer
         self.user_fc = nn.Linear(opt.filters_num, opt.id_emb_size)
         self.item_fc = nn.Linear(opt.filters_num, opt.id_emb_size)
@@ -86,14 +88,15 @@ class DAML(nn.Module):
         feature: (?, 100, DOC_LEN ,1)
         attention: (?, DOC_LEN)
         '''
-        feature = feature.permute(0, 2, 3, 1)
-        attention = attention.unsqueeze(-1).unsqueeze(-1)
-        pools = []
-        for i in range(feature.size(1)):
-            t = feature[:, i:i+3, :, :] * attention[:, i:i+3, :, :]
-            t = t.mean(1, keepdim=True)
-            pools.append(t)
-        pools = torch.cat(pools, 1).permute(0, 2, 1, 3)  # ? 1, DOC_LEN, 100
+        bs, n_filters, doc_len, _ = feature.shape
+        feature = feature.permute(0, 3, 2, 1)  # bs * 1 * doc_len * embed
+        attention = attention.reshape(bs, 1, doc_len, 1)  # bs * doc
+        pools = feature * attention
+        pools = self.unfold(pools)
+        pools = pools.reshape(bs, 3, n_filters, doc_len)
+        pools = pools.sum(dim=1, keepdims=True)  # bs * 1 * n_filters * doc_len
+        pools = pools.transpose(2, 3)  # bs * 1 * doc_len * n_filters
+
         abs_fea = cnn(pools).squeeze(3)  # ? (DOC_LEN-2), 100
         abs_fea = F.avg_pool1d(abs_fea, abs_fea.size(2))  # ? 100
         abs_fea = F.relu(fc(abs_fea.squeeze(2)))  # ? 32
