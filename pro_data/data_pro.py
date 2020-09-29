@@ -16,7 +16,7 @@ P_REVIEW = 0.85
 MAX_DF = 0.7
 MAX_VOCAB = 50000
 DOC_LEN = 500
-PRE_W2V_BIN_PATH = ""  # the pre-traiend word2vec files
+PRE_W2V_BIN_PATH = ""  # the pre-trained word2vec files
 
 
 def now():
@@ -24,9 +24,8 @@ def now():
 
 
 def get_count(data, id):
-    idList = data[[id, 'ratings']].groupby(id, as_index=False)
-    idListCount = idList.size()
-    return idListCount
+    ids = set(data[id].tolist())
+    return ids
 
 
 def numerize(data):
@@ -170,7 +169,7 @@ if __name__ == '__main__':
         os.makedirs(save_folder + '/test')
 
     if len(PRE_W2V_BIN_PATH) == 0:
-        print("Warning: the word embedding path is not provided, will be initialized randomly")
+        print("Warning: the word embedding file is not provided, will be initialized randomly")
     file = open(filename, errors='ignore')
 
     print(f"{now()}: Step1: loading raw review datasets...")
@@ -206,9 +205,9 @@ if __name__ == '__main__':
     data = pd.DataFrame(data_frame)     # [['user_id', 'item_id', 'ratings', 'reviews']]
     del users_id, items_id, ratings, reviews
 
-    userCount, itemCount = get_count(data, 'user_id'), get_count(data, 'item_id')
-    userNum_all = userCount.shape[0]
-    itemNum_all = itemCount.shape[0]
+    uidList, iidList = get_count(data, 'user_id'), get_count(data, 'item_id')
+    userNum_all = len(uidList)
+    itemNum_all = len(iidList)
     print("===============Start:all  rawData size======================")
     print(f"dataNum: {data.shape[0]}")
     print(f"userNum: {userNum_all}")
@@ -216,8 +215,6 @@ if __name__ == '__main__':
     print(f"data densiy: {data.shape[0]/float(userNum_all * itemNum_all):.4f}")
     print("===============End: rawData size========================")
 
-    uidList = userCount.index  # userID list
-    iidList = itemCount.index  # itemID list
     user2id = dict((uid, i) for(i, uid) in enumerate(uidList))
     item2id = dict((iid, i) for(i, iid) in enumerate(iidList))
     data = numerize(data)
@@ -225,11 +222,9 @@ if __name__ == '__main__':
     print(f"-"*60)
     print(f"{now()} Step2: split datsets into train/val/test, save into npy data")
     data_train, data_test = train_test_split(data, test_size=0.2, random_state=1234)
-    userCount, itemCount = get_count(data_train, 'user_id'), get_count(data_train, 'item_id')
-    uids_train = userCount.index
-    iids_train = itemCount.index
-    userNum = userCount.shape[0]
-    itemNum = itemCount.shape[0]
+    uids_train, iids_train = get_count(data_train, 'user_id'), get_count(data_train, 'item_id')
+    userNum = len(uids_train)
+    itemNum = len(iids_train)
     print("===============Start: no-preprocess: trainData size======================")
     print("dataNum: {}".format(data_train.shape[0]))
     print("userNum: {}".format(userNum))
@@ -262,11 +257,9 @@ if __name__ == '__main__':
 
     # split validate set aand test set
     data_test, data_val = train_test_split(data_test, test_size=0.5, random_state=1234)
-    userCount, itemCount = get_count(data_train, 'user_id'), get_count(data_train, 'item_id')
-    uidList_train = userCount.index
-    iidList_train = itemCount.index
-    userNum = userCount.shape[0]
-    itemNum = itemCount.shape[0]
+    uidList_train, iidList_train = get_count(data_train, 'user_id'), get_count(data_train, 'item_id')
+    userNum = len(uidList_train)
+    itemNum = len(iidList_train)
     print("===============Start--process finished: trainData size======================")
     print("dataNum: {}".format(data_train.shape[0]))
     print("userNum: {}".format(userNum))
