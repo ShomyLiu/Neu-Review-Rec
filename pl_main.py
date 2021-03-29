@@ -38,9 +38,6 @@ def run(**kwargs):
     val_data = ReviewData(opt.data_root, mode="Val")
     val_data_loader = DataLoader(val_data, batch_size=opt.batch_size, shuffle=False,
                                  collate_fn=collate_fn, num_workers=opt.num_workers)
-    test_data = ReviewData(opt.data_root, mode="Val")
-    test_data_loader = DataLoader(test_data, batch_size=opt.batch_size, shuffle=False,
-                                collate_fn=collate_fn, num_workers=opt.num_workers)
     print(f'train data: {len(train_data)}; val data: {len(val_data)};')
 
     ckpt = ModelCheckpoint(dirpath='./checkpoints/', monitor='val_mse', mode='min',
@@ -49,7 +46,6 @@ def run(**kwargs):
                          accelerator='ddp' if opt.use_ddp else None, callbacks=[ckpt])
 
     trainer.fit(litModel, train_data_loader, val_data_loader)
-    trainer.test(ckpt_path='best', test_dataloaders=test_data_loader)
 
 
 if __name__ == "__main__":
