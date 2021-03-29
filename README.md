@@ -1,6 +1,23 @@
 A Toolkit for Neural Review-based Recommendation models with Pytorch.
 基于评论文本的深度推荐系统模型库 (Pytorch)
 
+
+**Update**
+Add a branch (PL) to use [PyTorch Lightning](https://github.com/PyTorchLightning/pytorch-lightning/) to wrap the framework for further distributed training.
+```
+git clone https://github.com/ShomyLiu/Neu-Review-Rec.git
+git checkout pl
+```
+And the usage:
+```
+python3 pl_main.py run --use_ddp=True --gpu_id=2
+# indicating that using ddp mode for distributed training with 2 gpus. refer `config/config.py`.
+```
+
+
+
+
+
 # Neural Review-based Recommendaton
 In this repository, we reimplement some important review-based recommendation models, and provide an extensible framework **NRRec**  with Pytorch.
 Researchers can implement their own methodss easily in our framework (just in *models* folder).
