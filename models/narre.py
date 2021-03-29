@@ -4,9 +4,10 @@ import torch
 import torch.nn as nn
 import numpy as np
 import torch.nn.functional as F
+import pytorch_lightning as pl
 
 
-class NARRE(nn.Module):
+class NARRE(pl.LightningModule):
     '''
     NARRE: WWW 2018
     '''
@@ -25,7 +26,7 @@ class NARRE(nn.Module):
         return u_fea, i_fea
 
 
-class Net(nn.Module):
+class Net(pl.LightningModule):
     def __init__(self, opt, uori='user'):
         super(Net, self).__init__()
         self.opt = opt
@@ -91,12 +92,9 @@ class Net(nn.Module):
         nn.init.uniform_(self.fc_layer.weight, -0.1, 0.1)
         nn.init.constant_(self.fc_layer.bias, 0.1)
         if self.opt.use_word_embedding:
-            w2v = torch.from_numpy(np.load(self.opt.w2v_path))
-            if self.opt.use_gpu:
-                self.word_embs.weight.data.copy_(w2v.cuda())
-            else:
-                self.word_embs.weight.data.copy_(w2v)
+            w2v = torch.from_numpy(np.load(self.opt.w2v_path)).to(self.device).float()
+            self.word_embs.weight.data.copy_(w2v)
         else:
-            nn.init.xavier_normal_(self.word_embs.weight)
+            nn.init.uniform_(self.word_embs.weight, -0.1, 0.1)
         nn.init.uniform_(self.id_embedding.weight, a=-0.1, b=0.1)
         nn.init.uniform_(self.u_i_id_embedding.weight, a=-0.1, b=0.1)

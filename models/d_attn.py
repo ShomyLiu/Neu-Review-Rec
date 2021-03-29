@@ -4,9 +4,10 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import pytorch_lightning as pl
 
 
-class D_ATTN(nn.Module):
+class D_ATTN(pl.LightningModule):
     '''
     Interpretable Convolutional Neural Networks with Dual Local and Global Attention for Review Rating Prediction
     Rescys 2017
@@ -26,7 +27,7 @@ class D_ATTN(nn.Module):
         return u_fea, i_fea
 
 
-class Net(nn.Module):
+class Net(pl.LightningModule):
     def __init__(self, opt, uori='user'):
         super(Net, self).__init__()
         self.opt = opt
@@ -66,13 +67,10 @@ class Net(nn.Module):
         nn.init.uniform_(self.fc[0].weight, -0.1, 0.1)
         nn.init.uniform_(self.fc[-1].weight, -0.1, 0.1)
         if self.opt.use_word_embedding:
-            w2v = torch.from_numpy(np.load(self.opt.w2v_path))
-            if self.opt.use_gpu:
-                self.word_embs.weight.data.copy_(w2v.cuda())
-            else:
-                self.word_embs.weight.data.copy_(w2v)
+            w2v = torch.from_numpy(np.load(self.opt.w2v_path)).to(self.device).float()
+            self.word_embs.weight.data.copy_(w2v)
         else:
-            nn.init.xavier_normal_(self.word_embs.weight)
+            nn.init.uniform_(self.word_embs.weight, -0.1, 0.1)
 
 
 class LocalAttention(nn.Module):

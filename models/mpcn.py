@@ -4,9 +4,10 @@ import torch
 import torch.nn as nn
 import numpy as np
 import torch.nn.functional as F
+import pytorch_lightning as pl
 
 
-class MPCN(nn.Module):
+class MPCN(pl.LightningModule):
     '''
     Multi-Pointer Co-Attention Network for Recommendation
     WWW 2018
@@ -97,13 +98,9 @@ class MPCN(nn.Module):
             nn.init.uniform_(fc.bias, -0.1, 0.1)
 
         if self.opt.use_word_embedding:
-            w2v = torch.from_numpy(np.load(self.opt.w2v_path))
-            if self.opt.use_gpu:
-                self.user_word_embs.weight.data.copy_(w2v.cuda())
-                self.item_word_embs.weight.data.copy_(w2v.cuda())
-            else:
-                self.user_word_embs.weight.data.copy_(w2v)
-                self.item_word_embs.weight.data.copy_(w2v)
+            w2v = torch.from_numpy(np.load(self.opt.w2v_path)).to(self.device).float()
+            self.user_word_embs.weight.data.copy_(w2v)
+            self.item_word_embs.weight.data.copy_(w2v)
         else:
             nn.init.uniform_(self.user_word_embs.weight, -0.1, 0.1)
             nn.init.uniform_(self.item_word_embs.weight, -0.1, 0.1)
