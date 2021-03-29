@@ -3,6 +3,7 @@ A Toolkit for Neural Review-based Recommendation models with Pytorch.
 
 
 **Update**
+
 Add a branch (PL) to use [PyTorch Lightning](https://github.com/PyTorchLightning/pytorch-lightning/) to wrap the framework for further distributed training.
 ```
 git clone https://github.com/ShomyLiu/Neu-Review-Rec.git
@@ -14,6 +15,9 @@ python3 pl_main.py run --use_ddp=True --gpu_id=2
 # indicating that using ddp mode for distributed training with 2 gpus. refer `config/config.py`.
 ```
 
+**TODO**
+
+- model test in ddp
 
 
 
