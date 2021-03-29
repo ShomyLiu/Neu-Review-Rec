@@ -9,19 +9,16 @@ class DefaultConfig:
     dataset = 'Digital_Music_data'
 
     # -------------base config-----------------------#
-    use_gpu = True
     gpu_id = 1
-    multi_gpu = False
-    gpu_ids = []
+    use_ddp = False
 
     seed = 2019
     num_epochs = 20
-    num_workers = 0
+    num_workers = 4
 
     optimizer = 'Adam'
     weight_decay = 1e-3  # optimizer rameteri
     lr = 2e-3
-    loss_method = 'mse'
     drop_out = 0.5
 
     use_word_embedding = True
@@ -82,13 +79,13 @@ class DefaultConfig:
                 raise Exception('opt has No key: {}'.format(k))
             setattr(self, k, v)
 
-        print('*************************************************')
-        print('user config:')
-        for k, v in self.__class__.__dict__.items():
-            if not k.startswith('__') and k != 'user_list' and k != 'item_list':
-                print("{} => {}".format(k, getattr(self, k)))
+        # print('*************************************************')
+        # print('user config:')
+        # for k, v in self.__class__.__dict__.items():
+        #   if not k.startswith('__') and k != 'user_list' and k != 'item_list':
+        #       print("{} => {}".format(k, getattr(self, k)))
 
-        print('*************************************************')
+        # print('*************************************************')
 
 
 class Digital_Music_data_Config(DefaultConfig):
