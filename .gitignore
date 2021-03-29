@@ -1,5 +1,6 @@
 checkpoints/__pycache__
 checkpoints/*pth
+checkpoints/*ckpt
 config/__pycache__
 dataset/__pycache__
 dataset/*_data
@@ -7,4 +8,4 @@ framework/__pycache__
 models/__pycache__
 pro_data/*json
 *pyc
-
+lightning_logs/
