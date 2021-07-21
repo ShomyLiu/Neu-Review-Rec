@@ -155,4 +155,4 @@ class MLP(nn.Module):
         nn.init.uniform_(self.fc.bias, a=0, b=0.2)
 
     def forward(self, feature, *args, **kwargs):
-        return F.relu(self.fc(feature)[0])
+        return F.relu(self.fc(feature))
