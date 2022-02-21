@@ -195,10 +195,13 @@ if __name__ == '__main__':
             if str(js['asin']) == 'unknown':
                 print("unkown item id")
                 continue
-            reviews.append(js['reviewText'])
-            users_id.append(str(js['reviewerID']))
-            items_id.append(str(js['asin']))
-            ratings.append(str(js['overall']))
+            try:
+                reviews.append(js['reviewText'])
+                users_id.append(str(js['reviewerID']))
+                items_id.append(str(js['asin']))
+                ratings.append(str(js['overall']))
+            except:
+                continue
 
     data_frame = {'user_id': pd.Series(users_id), 'item_id': pd.Series(items_id),
                   'ratings': pd.Series(ratings), 'reviews': pd.Series(reviews)}
@@ -396,7 +399,7 @@ if __name__ == '__main__':
             text2index = []
             wordTokens = text.strip().split()
             if len(wordTokens) == 0:
-                wordTokens = ['unk']
+                wordTokens = ['<unk>']
             text2index = [word_index[w] for w in wordTokens]
             if len(text2index) < maxSentLen:
                 text2index = text2index + [0] * (maxSentLen - len(text2index))
@@ -428,7 +431,7 @@ if __name__ == '__main__':
             text2index = []
             wordTokens = text.strip().split()
             if len(wordTokens) == 0:
-                wordTokens = ['unk']
+                wordTokens = ['<unk>']
             text2index = [word_index[w] for w in wordTokens]
             if len(text2index) < maxSentLen:
                 text2index = text2index + [0] * (maxSentLen - len(text2index))
